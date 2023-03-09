@@ -16,7 +16,7 @@ app.use(cors());
 const CONNECTION_URL =
   "mongodb+srv://mohammadreza:mohammadreza123123@clustermo.ohuva4b.mongodb.net/?retryWrites=true&w=majority";
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 mongoose
   .connect(CONNECTION_URL, {
