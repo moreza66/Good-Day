@@ -1,13 +1,6 @@
-// import {
-//   FETCH_ALL,
-//   CREATE,
-//   UPDATE,
-//   DELETE,
-//   LIKE,
-// } from "../constants/actionTypes";
 export default (posts = [], action) => {
   switch (action.type) {
-    case FETCH_ALL:
+    case "FETCH_ALL":
       return action.payload;
     case "CREATE":
       return posts;
@@ -15,6 +8,24 @@ export default (posts = [], action) => {
       return posts;
   }
 };
+
+// import {
+//   FETCH_ALL,
+//   CREATE,
+//   UPDATE,
+//   DELETE,
+//   LIKE,
+// } from "../constants/actionTypes";
+// export default (posts = [], action) => {
+//   switch (action.type) {
+//     case FETCH_ALL:
+//       return action.payload;
+//     case "CREATE":
+//       return posts;
+//     default:
+//       return posts;
+//   }
+// };
 
 // export default (posts = [], action) => {
 //   switch (action.type) {

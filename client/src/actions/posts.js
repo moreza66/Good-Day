@@ -1,3 +1,14 @@
+import * as api from "../api";
+
+export const getPosts = () => async (dispatch) => {
+  try {
+    const { data } = await api.fetchPosts();
+    dispatch({ type: "FETCH_ALL", payload: data });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
 // import {
 //   FETCH_ALL,
 //   CREATE,
@@ -6,17 +17,17 @@
 //   LIKE,
 // } from "../constants/actionTypes";
 
-import * as api from "../api/index.js";
+// import * as api from "../api/index.js";
 
-export const getPosts = () => async (dispatch) => {
-  try {
-    const { data } = await api.fetchPosts();
+// export const getPosts = () => async (dispatch) => {
+//   try {
+//     const { data } = await api.fetchPosts();
 
-    dispatch({ type: FETCH_ALL, payload: data });
-  } catch (error) {
-    console.log(error.message);
-  }
-};
+//     dispatch({ type: FETCH_ALL, payload: data });
+//   } catch (error) {
+//     console.log(error.message);
+//   }
+// };
 
 // export const createPost = (post) => async (dispatch) => {
 //   try {

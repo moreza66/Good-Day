@@ -10,6 +10,8 @@ export const getPosts = async (req, res) => {
   }
 };
 
+// 35min
+
 export const createPost = async (req, res) => {
   const post = req.body;
 
