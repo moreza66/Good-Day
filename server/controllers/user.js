@@ -1,6 +1,5 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-
 import User from "../models/user.js";
 
 export const signin = async (req, res) => {
@@ -34,7 +33,14 @@ export const signin = async (req, res) => {
 
 export const signup = async (req, res) => {
   const { email, password, confirmPassword, fisrtName, lastName } = req.body;
-
+  console.log(
+    " I AM HEREEE 1111",
+    email,
+    password,
+    confirmPassword,
+    fisrtName,
+    lastName
+  );
   try {
     const existingUser = await User.findOne({ email });
     if (existingUser)
@@ -44,13 +50,12 @@ export const signup = async (req, res) => {
       return res.status(400).json({ message: "Passwords don't match!" });
 
     const hashedPassword = await bcrypt.hash(password, 12);
-
     const result = await User.create({
       email,
       password: hashedPassword,
       name: `${fisrtName} ${lastName}`,
     });
-
+    console.log(" RESULTT", result);
     const token = jwt.sign({ email: result.email, id: result._id }, "test", {
       expiresIn: "1h",
     });
