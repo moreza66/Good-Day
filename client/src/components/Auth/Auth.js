@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Avatar,
   Button,
@@ -9,8 +9,7 @@ import {
 } from "@material-ui/core";
 
 import { GoogleLogin } from "react-google-login";
-import { useDispatch } from "react-redux";
-import { createBrowserHistory } from "history";
+import { useDispatch, useSelector } from "react-redux";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Icon from "./Icon";
 
@@ -34,18 +33,27 @@ const Auth = () => {
   const [formData, setFormData] = useState(initialState);
 
   const dispatch = useDispatch();
-  const history = createBrowserHistory();
+  const { user } = useSelector((state) => state.auth);
+  const { token } = user;
 
   const handleShowPassword = () =>
     setShowPassword((prevShowPassword) => !prevShowPassword);
+
+  useEffect(() => {
+    if (token) {
+      window.location.href = "/";
+    }
+  }, [token]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (isSignup) {
       console.log("THIS IS @@@ DATA", formData);
-      dispatch(signup(formData, history));
+      dispatch(signup(formData));
+      window.location.href = "/";
     } else {
-      dispatch(signin(formData, history));
+      dispatch(signin(formData));
+      window.location.href = "/";
     }
   };
 
@@ -64,7 +72,7 @@ const Auth = () => {
     try {
       dispatch({ type: "AUTH", data: { result, token } });
 
-      history.push("/");
+      window.location.href = "/";
     } catch (error) {
       console.log(error);
     }

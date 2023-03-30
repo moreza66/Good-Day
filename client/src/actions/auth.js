@@ -1,14 +1,15 @@
 import { AUTH } from "../constants/actionTypes";
-
+import { useNavigate } from "react-router-dom";
 import * as api from "../api/index.js";
 
-export const signin = (formData, history) => async (dispatch) => {
+export const signin = (formData) => async (dispatch) => {
   try {
     const { data } = await api.signIn(formData);
     console.log(" $$$ data", data);
     dispatch({ type: AUTH, data });
 
-    history.push("/");
+    const navigate = useNavigate();
+    navigate("/");
   } catch (error) {
     console.log(error.response.data);
     console.log(error.response.status);
@@ -16,13 +17,14 @@ export const signin = (formData, history) => async (dispatch) => {
   }
 };
 
-export const signup = (formData, history) => async (dispatch) => {
+export const signup = (formData) => async (dispatch) => {
   try {
     const { data } = await api.signUp(formData);
 
     dispatch({ type: AUTH, data });
 
-    history.push("/");
+    const navigate = useNavigate();
+    navigate("/");
   } catch (error) {
     console.log(error);
   }

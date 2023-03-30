@@ -1,36 +1,32 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { createBrowserHistory } from "history";
-
-import { AppBar, Avatar, Button, Toolbar, Typography } from "@material-ui/core";
+import { AppBar, Avatar, Typography, Toolbar, Button } from "@material-ui/core";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import useStyles from "./styles";
 import goodday from "../../Images/goodday.png";
 
 const Navbar = () => {
   const classes = useStyles();
-
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
   const dispatch = useDispatch();
-
-  const history = createBrowserHistory();
+  const navigate = useNavigate();
   const location = useLocation();
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
 
   const logout = () => {
     dispatch({ type: "LOGOUT" });
-
-    history.push("/");
-
+    navigate("/");
     setUser(null);
   };
 
   useEffect(() => {
-    const token = user?.token;
+    const userProfile = JSON.parse(localStorage.getItem("profile"));
+    setUser(userProfile);
+  }, []);
 
-    //JWT ...
-
-    setUser(JSON.parse(localStorage.getItem("profile")));
-  }, [location]);
+  useEffect(() => {
+    // JWT ...
+  }, [user]);
 
   return (
     <AppBar className={classes.appBar} position="static" color="inherit">
